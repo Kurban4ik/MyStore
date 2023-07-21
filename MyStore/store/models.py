@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Stuff(models.Model):
@@ -10,9 +11,16 @@ class Stuff(models.Model):
     price = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
     photo = models.ImageField(upload_to=f'{str(name)[:30] + str(date)}')
+    colors = models.CharField(max_length=100, choices=[('White', 'White'), ('Black', 'Black')], blank=True)
+    compound = models.TextField(blank=True)
+    quantity = models.IntegerField()
+    brand = models.ForeignKey('Brands', on_delete=models.PROTECT, blank=True)
 
     def __str__(self):
         return f'{self.name}, {self.price}'
+
+    def get_absolute_url(self):
+        return reverse('shop_single', kwargs={'name':str(self.name) + str(self.pk)})
 
 
 class Type(models.Model):
@@ -23,6 +31,13 @@ class Type(models.Model):
 
 
 class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class Brands(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):

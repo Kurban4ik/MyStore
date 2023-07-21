@@ -1,8 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 
-
-# TODO перевести urlки Index.html на динамические ссылки
+# TODO обязательно доработать выход на один товар
 
 # Create your views here.
 def main(req):
