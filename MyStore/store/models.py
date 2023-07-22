@@ -15,12 +15,13 @@ class Stuff(models.Model):
     compound = models.TextField(blank=True)
     quantity = models.IntegerField()
     brand = models.ForeignKey('Brands', on_delete=models.PROTECT, blank=True)
+    rating = models.SmallIntegerField()
 
     def __str__(self):
         return f'{self.name}, {self.price}'
 
     def get_absolute_url(self):
-        return reverse('shop_single', kwargs={'name':str(self.name) + str(self.pk)})
+        return reverse('shop_single', kwargs={'name':str(self.name) + '_' + str(self.pk)})
 
 
 class Type(models.Model):

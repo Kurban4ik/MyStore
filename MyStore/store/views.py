@@ -2,8 +2,12 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 
 # TODO обязательно доработать выход на один товар
+# TODO добавить выборку на комментарии
 
 # Create your views here.
+from store.models import Stuff
+
+
 def main(req):
     dc = {'title': 'Zay Shop'}
     return render(req, 'store/index.html', dc)
@@ -29,7 +33,14 @@ def base(req):
 
 
 def shop_single(req, name):
-    dc = {'title': 'Zay Shop'}
+    name = name.split('_')
+    nm = name[0]
+    pk = int(name[1])
+    stuff = Stuff.objects.get(pk=pk)
+    dc = {'title': 'Zay Shop', 'stuff': stuff,
+          'rng': range(stuff.rating),
+          'rv_rng': range(5 - stuff.rating)
+          }
     return render(req, 'store/shop-single.html', dc)
 
 
