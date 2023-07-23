@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-5 mt-5">
                 <div class="card mb-3">
-                    <img class="card-img img-fluid" src="{% static   'store/img/product_single_10.jpg' %}" alt="Card image cap"
+                    <img class="card-img img-fluid" src="{% static 'store/img/product_single_10.jpg' %}" alt="Card image cap"
                          id="product-detail">
                 </div>
                 <div class="row">
@@ -134,7 +134,7 @@
             <div class="col-lg-7 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="h2">Active Wear</h1>
+                        <h1 class="h2">{{ stuff_name }}</h1>
                         <p class="h3 py-2">${{stuff.price}}</p>
                         <p class="py-2">
                             {% for i in rng %}
@@ -161,13 +161,17 @@
                                 <h6>Avaliable Color :</h6>
                             </li>
                             <li class="list-inline-item">
-                                <p class="text-muted"><strong>White / Black</strong></p>
+                                <p class="text-muted">{% for i in clrs %}
+                                    {% if i.quantity != 0 %}<span class="btn btn-success btn-size"> <strong>{{i.color}}</strong></span>
+                                    {% endif %}
+                                    {% endfor %}
+                                </p>
                             </li>
                         </ul>
 
                         <h6>Specification:</h6>
                         <ul class="list-unstyled pb-3">
-                            {% for i in stuff.compound.split %}
+                            {% for i in specification %}
                             <li>{{i}}</li>
                             {% endfor %}
 
@@ -181,14 +185,13 @@
                                         <li class="list-inline-item">Size :
                                             <input type="hidden" name="product-size" id="product-size" value="S">
                                         </li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">S</span>
+                                        {% for i in sizes %}
+                                        {% if i.quantity %}
+                                        <li class="list-inline-item"><span class="btn btn-success btn-size">{{i.size}}</span>
                                         </li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">M</span>
-                                        </li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">L</span>
-                                        </li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span>
-                                        </li>
+                                        {% endif %}
+                                        {% endfor %}
+
                                     </ul>
                                 </div>
                                 <div class="col-auto">

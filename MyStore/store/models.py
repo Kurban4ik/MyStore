@@ -11,11 +11,12 @@ class Stuff(models.Model):
     price = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
     photo = models.ImageField(upload_to=f'{str(name)[:30] + str(date)}')
-    colors = models.CharField(max_length=100, choices=[('White', 'White'), ('Black', 'Black')], blank=True)
+    colors = models.CharField(max_length=500, blank=True)
     compound = models.TextField(blank=True)
     quantity = models.IntegerField()
     brand = models.ForeignKey('Brands', on_delete=models.PROTECT, blank=True)
     rating = models.SmallIntegerField()
+    sizes = models.CharField(max_length=500, blank=True)
 
     def __str__(self):
         return f'{self.name}, {self.price}'
