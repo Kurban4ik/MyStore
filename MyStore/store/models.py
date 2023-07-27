@@ -22,7 +22,7 @@ class Stuff(models.Model):
         return f'{self.name}, {self.price}'
 
     def get_absolute_url(self):
-        return reverse('shop_single', kwargs={'name':str(self.name) + '_' + str(self.pk)})
+        return reverse('shop_single', kwargs={'name': str(self.name)})
 
 
 class Type(models.Model):
